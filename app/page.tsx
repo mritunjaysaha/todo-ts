@@ -121,20 +121,41 @@ export default function Home() {
         <main className="flex min-h-screen flex-col items-center gap-8 p-24">
             <nav>Todo Matic</nav>
 
-            <div>
-                <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-10 items-center">
+                <form onSubmit={handleSubmit} className="flex gap-4">
                     <input
                         value={value}
                         onChange={handleChange}
-                        className="bg-slate-300 outline-none text-black"
+                        className="bg-slate-300 outline-none text-black rounded-md"
                     />
-                    <button>{!editTodoId ? "Add" : "Update"}</button>
+                    <button className="bg-slate-900 py-2 px-6 rounded-md hover:bg-slate-700 transition duration-300 ease-in-out">
+                        {!editTodoId ? "Add" : "Update"}
+                    </button>
                 </form>
 
-                <div onClick={handleTabsClick}>
-                    <button data-tab="ALL">Show all tasks</button>
-                    <button data-tab="ACTIVE">Show active tasks</button>
-                    <button data-tab="COMPLETED">Show completed tasks</button>
+                <div onClick={handleTabsClick} className="flex gap-2">
+                    <button
+                        data-tab="ALL"
+                        className={currentTab === "ALL" ? "active-tab" : "tab"}
+                    >
+                        Show all tasks
+                    </button>
+                    <button
+                        data-tab="ACTIVE"
+                        className={
+                            currentTab === "ACTIVE" ? "active-tab" : "tab"
+                        }
+                    >
+                        Show active tasks
+                    </button>
+                    <button
+                        data-tab="COMPLETED"
+                        className={
+                            currentTab === "COMPLETED" ? "active-tab" : "tab"
+                        }
+                    >
+                        Show completed tasks
+                    </button>
                 </div>
             </div>
 
