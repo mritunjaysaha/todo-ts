@@ -1,6 +1,10 @@
 "use client";
 
-import { createTodo, editTodo } from "@/lib/redux/slices/todoSlice/todoSlice";
+import {
+    createTodo,
+    editTodo,
+    removeTodo,
+} from "@/lib/redux/slices/todoSlice/todoSlice";
 import { useDispatch, useSelector } from "@/lib/redux/store";
 import { Todo } from "@/types/todo";
 import {
@@ -92,6 +96,10 @@ export default function Home() {
             setEditTodoId(todoId);
 
             return;
+        }
+
+        if (isRemoveButtonClicked) {
+            dispatch(removeTodo(todoId));
         }
     };
 
