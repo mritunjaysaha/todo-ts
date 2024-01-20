@@ -4,6 +4,7 @@ import {
     createTodo,
     editTodo,
     removeTodo,
+    updateTodoStatus,
 } from "@/lib/redux/slices/todoSlice/todoSlice";
 import { useDispatch, useSelector } from "@/lib/redux/store";
 import { Todo } from "@/types/todo";
@@ -28,6 +29,8 @@ export default function Home() {
         ACTIVE: activeTodoArr,
         COMPLETED: completedTodoArr,
     };
+
+    const remainingTodos = activeTodoArr.length;
 
     const [value, setValue] = useState<string>("");
     const [currentTab, setCurrentTab] = useState<Tabs>("ALL");
@@ -61,6 +64,8 @@ export default function Home() {
         };
 
         dispatch(createTodo(newTodo));
+
+        setValue("");
     };
 
     const handleTabsClick: MouseEventHandler = (e) => {
@@ -103,6 +108,15 @@ export default function Home() {
         }
     };
 
+    const onChangeStatus = (todoId: string) => {
+        const currentTodo = todo[todoId];
+        if (currentTodo.status === "ACTIVE") {
+            dispatch(updateTodoStatus({ ...currentTodo, status: "COMPLETED" }));
+        } else {
+            dispatch(updateTodoStatus({ ...currentTodo, status: "ACTIVE" }));
+        }
+    };
+
     return (
         <main className="flex min-h-screen flex-col items-center gap-8 p-24">
             <nav>Todo Matic</nav>
@@ -125,6 +139,12 @@ export default function Home() {
             </div>
 
             <ul onClick={handleTodoListClick}>
+                <p>
+                    {remainingTodos
+                        ? `${remainingTodos} tasks remaining`
+                        : "All tasks completed"}{" "}
+                </p>
+
                 {todoIdArrObj[currentTab].map((id) => {
                     const data = todo[id];
                     const { todoContent, status } = data;
@@ -134,6 +154,9 @@ export default function Home() {
                             <input
                                 type="checkbox"
                                 checked={status === "COMPLETED"}
+                                onChange={() => {
+                                    onChangeStatus(id);
+                                }}
                             />
                             <p>{todoContent}</p>
                             <div className="flex gap-4">
