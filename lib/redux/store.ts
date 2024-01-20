@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import { todoSlice } from "@/lib/redux/slices/todoSlice/todoSlice";
 import {
     useDispatch as useReduxDispatch,
     useSelector as useReduxSelector,
@@ -13,7 +14,9 @@ const persistConfig = {
     storage,
 };
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+    todoData: todoSlice.reducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
