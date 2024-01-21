@@ -11,19 +11,21 @@ export const Tabs: FC<TabsProps> = ({ currentTab, handleTabsClick }) => {
         <div onClick={handleTabsClick} className="flex gap-2">
             <button
                 data-tab="ALL"
-                className={currentTab === "ALL" ? "active-tab" : "tab"}
+                className={`tab ${currentTab === "ALL" ? "active-tab" : ""}`}
             >
                 Show all tasks
             </button>
             <button
                 data-tab="ACTIVE"
-                className={currentTab === "ACTIVE" ? "active-tab" : "tab"}
+                className={`tab ${currentTab === "ACTIVE" ? "active-tab" : ""}`}
             >
                 Show active tasks
             </button>
             <button
                 data-tab="COMPLETED"
-                className={currentTab === "COMPLETED" ? "active-tab" : "tab"}
+                className={`tab ${
+                    currentTab === "COMPLETED" ? "active-tab" : ""
+                }`}
             >
                 Show completed tasks
             </button>
