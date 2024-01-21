@@ -1,6 +1,6 @@
 "use client";
 
-import { TodoForm } from "@/components/TodoForm/TodoForm";
+import { TodoForm } from "@/components/TodoForm";
 import {
     removeTodo,
     updateTodoStatus,
