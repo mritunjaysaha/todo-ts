@@ -51,14 +51,14 @@ export class TabListItem extends Component<TabListItemProps, TabListItemState> {
                     <button
                         title={todoContent}
                         data-edit
-                        className="bg-slate-700 w-40 truncate p-2 rounded"
+                        className="bg-slate-700 hover:bg-slate-600 hover-transition w-40 truncate p-2 rounded"
                     >
                         Edit {todoContent}
                     </button>
                     <button
                         title={todoContent}
                         data-remove
-                        className="bg-slate-700 w-40 truncate p-2 rounded"
+                        className="bg-slate-700 hover:bg-slate-600 hover-transition w-40 truncate p-2 rounded"
                     >
                         Delete <span>{todoContent}</span>
                     </button>

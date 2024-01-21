@@ -67,7 +67,7 @@ export const TodoForm: FC<TodoFormType> = ({
                     className="bg-slate-300 outline-none text-black rounded-md p-2"
                     placeholder="Make a todo"
                 />
-                <button className="bg-slate-700 py-2 px-6 rounded-md hover:bg-slate-700 transition duration-300 ease-in-out">
+                <button className="bg-slate-700 py-2 px-6 rounded-md hover:bg-slate-600 hover-transition">
                     {!editTodoId ? "Add" : "Update"}
                 </button>
             </form>
