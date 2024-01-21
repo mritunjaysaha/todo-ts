@@ -1,14 +1,14 @@
 "use client";
 
+import { Tabs } from "@/components/Tabs";
 import { TodoForm } from "@/components/TodoForm";
 import {
     removeTodo,
     updateTodoStatus,
 } from "@/lib/redux/slices/todoSlice/todoSlice";
 import { useDispatch, useSelector } from "@/lib/redux/store";
+import { TabKeys } from "@/types/tabKeys";
 import { MouseEventHandler, useState } from "react";
-
-export type Tabs = "ALL" | "ACTIVE" | "COMPLETED";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default function Home() {
         (state) => state.todoData
     );
 
-    const todoIdArrObj: Record<Tabs, string[]> = {
+    const todoIdArrObj: Record<TabKeys, string[]> = {
         ALL: allTodoIdArr,
         ACTIVE: activeTodoArr,
         COMPLETED: completedTodoArr,
@@ -25,7 +25,7 @@ export default function Home() {
     const remainingTodos = activeTodoArr.length;
 
     const [value, setValue] = useState<string>("");
-    const [currentTab, setCurrentTab] = useState<Tabs>("ALL");
+    const [currentTab, setCurrentTab] = useState<TabKeys>("ALL");
     const [editTodoId, setEditTodoId] = useState<string>("");
 
     const handleTabsClick: MouseEventHandler = (e) => {
@@ -38,7 +38,7 @@ export default function Home() {
         const { dataset } = selectedTabButton;
 
         if (dataset.tab) {
-            setCurrentTab(dataset.tab as Tabs);
+            setCurrentTab(dataset.tab as TabKeys);
         }
     };
 
@@ -88,28 +88,7 @@ export default function Home() {
                 setEditTodoId={setEditTodoId}
             />
 
-            <div onClick={handleTabsClick} className="flex gap-2">
-                <button
-                    data-tab="ALL"
-                    className={currentTab === "ALL" ? "active-tab" : "tab"}
-                >
-                    Show all tasks
-                </button>
-                <button
-                    data-tab="ACTIVE"
-                    className={currentTab === "ACTIVE" ? "active-tab" : "tab"}
-                >
-                    Show active tasks
-                </button>
-                <button
-                    data-tab="COMPLETED"
-                    className={
-                        currentTab === "COMPLETED" ? "active-tab" : "tab"
-                    }
-                >
-                    Show completed tasks
-                </button>
-            </div>
+            <Tabs currentTab={currentTab} handleTabsClick={handleTabsClick} />
 
             <ul onClick={handleTodoListClick}>
                 <p>
