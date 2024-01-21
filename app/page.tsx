@@ -1,22 +1,14 @@
 "use client";
 
+import { TodoForm } from "@/components/TodoForm/TodoForm";
 import {
-    createTodo,
-    editTodo,
     removeTodo,
     updateTodoStatus,
 } from "@/lib/redux/slices/todoSlice/todoSlice";
 import { useDispatch, useSelector } from "@/lib/redux/store";
-import { Todo } from "@/types/todo";
-import {
-    ChangeEventHandler,
-    FormEvent,
-    MouseEventHandler,
-    useState,
-} from "react";
-import { v4 as uuidV4 } from "uuid";
+import { MouseEventHandler, useState } from "react";
 
-type Tabs = "ALL" | "ACTIVE" | "COMPLETED";
+export type Tabs = "ALL" | "ACTIVE" | "COMPLETED";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -35,38 +27,6 @@ export default function Home() {
     const [value, setValue] = useState<string>("");
     const [currentTab, setCurrentTab] = useState<Tabs>("ALL");
     const [editTodoId, setEditTodoId] = useState<string>("");
-
-    const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        const target = e.target as HTMLInputElement;
-
-        setValue(target.value);
-    };
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if (editTodoId) {
-            const currentTodo = JSON.parse(JSON.stringify(todo[editTodoId]));
-
-            currentTodo.todoContent = value;
-            dispatch(editTodo(currentTodo));
-
-            setValue("");
-            setEditTodoId("");
-
-            return;
-        }
-
-        const newTodo: Todo = {
-            todoId: uuidV4(),
-            todoContent: value,
-            status: "ACTIVE",
-        };
-
-        dispatch(createTodo(newTodo));
-
-        setValue("");
-    };
 
     const handleTabsClick: MouseEventHandler = (e) => {
         const target = e.target as HTMLElement;
@@ -121,42 +81,34 @@ export default function Home() {
         <main className="flex min-h-screen flex-col items-center gap-8 p-24">
             <nav>Todo Matic</nav>
 
-            <div className="flex flex-col gap-10 items-center">
-                <form onSubmit={handleSubmit} className="flex gap-4">
-                    <input
-                        value={value}
-                        onChange={handleChange}
-                        className="bg-slate-300 outline-none text-black rounded-md"
-                    />
-                    <button className="bg-slate-900 py-2 px-6 rounded-md hover:bg-slate-700 transition duration-300 ease-in-out">
-                        {!editTodoId ? "Add" : "Update"}
-                    </button>
-                </form>
+            <TodoForm
+                value={value}
+                setValue={setValue}
+                editTodoId={editTodoId}
+                setEditTodoId={setEditTodoId}
+            />
 
-                <div onClick={handleTabsClick} className="flex gap-2">
-                    <button
-                        data-tab="ALL"
-                        className={currentTab === "ALL" ? "active-tab" : "tab"}
-                    >
-                        Show all tasks
-                    </button>
-                    <button
-                        data-tab="ACTIVE"
-                        className={
-                            currentTab === "ACTIVE" ? "active-tab" : "tab"
-                        }
-                    >
-                        Show active tasks
-                    </button>
-                    <button
-                        data-tab="COMPLETED"
-                        className={
-                            currentTab === "COMPLETED" ? "active-tab" : "tab"
-                        }
-                    >
-                        Show completed tasks
-                    </button>
-                </div>
+            <div onClick={handleTabsClick} className="flex gap-2">
+                <button
+                    data-tab="ALL"
+                    className={currentTab === "ALL" ? "active-tab" : "tab"}
+                >
+                    Show all tasks
+                </button>
+                <button
+                    data-tab="ACTIVE"
+                    className={currentTab === "ACTIVE" ? "active-tab" : "tab"}
+                >
+                    Show active tasks
+                </button>
+                <button
+                    data-tab="COMPLETED"
+                    className={
+                        currentTab === "COMPLETED" ? "active-tab" : "tab"
+                    }
+                >
+                    Show completed tasks
+                </button>
             </div>
 
             <ul onClick={handleTodoListClick}>
