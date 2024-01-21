@@ -45,7 +45,7 @@ export class TabListItem extends Component<TabListItemProps, TabListItemState> {
                             });
                         }}
                     />
-                    <p>{todoContent}</p>
+                    <p className="truncate">{todoContent}</p>
                 </div>
                 <div className="flex gap-4">
                     <button
