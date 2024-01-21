@@ -48,10 +48,18 @@ export class TabListItem extends Component<TabListItemProps, TabListItemState> {
                     <p>{todoContent}</p>
                 </div>
                 <div className="flex gap-4">
-                    <button data-edit className="bg-slate-700 p-2 rounded">
-                        Edit <span>{todoContent}</span>
+                    <button
+                        title={todoContent}
+                        data-edit
+                        className="bg-slate-700 w-40 truncate p-2 rounded"
+                    >
+                        Edit {todoContent}
                     </button>
-                    <button data-remove className="bg-slate-700 p-2 rounded">
+                    <button
+                        title={todoContent}
+                        data-remove
+                        className="bg-slate-700 w-40 truncate p-2 rounded"
+                    >
                         Delete <span>{todoContent}</span>
                     </button>
                 </div>
