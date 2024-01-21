@@ -34,9 +34,17 @@ export const TabLists: FC<TabListsProps> = ({
             dispatch(updateTodoStatus({ ...currentTodo, status: "ACTIVE" }));
         }
     };
+
+    if (!allTodoIdArr.length) {
+        return <></>;
+    }
+
     return (
-        <ul onClick={handleTodoListClick}>
-            <p>
+        <ul
+            onClick={handleTodoListClick}
+            className="flex flex-col gap-8 w-full md:w-11/12 lg:w-2/3 xl:w-1/2 bg-slate-900 rounded-md p-10 overflow-y-auto  max-h-[60vh] custom-scrollbar"
+        >
+            <p className="text-2xl font-semibold">
                 {remainingTodos
                     ? `${remainingTodos} tasks remaining`
                     : "All tasks completed"}{" "}

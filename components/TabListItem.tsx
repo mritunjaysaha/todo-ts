@@ -27,24 +27,26 @@ export class TabListItem extends Component<TabListItemProps, TabListItemState> {
         const { onChangeStatus } = this.props;
 
         return (
-            <li data-todo-id={todoId}>
-                <input
-                    type="checkbox"
-                    checked={status === "COMPLETED"}
-                    onChange={() => {
-                        onChangeStatus(todoId);
-                        this.setState({
-                            todo: {
-                                ...this.state.todo,
-                                status:
-                                    this.state.todo.status === "ACTIVE"
-                                        ? "COMPLETED"
-                                        : "ACTIVE",
-                            },
-                        });
-                    }}
-                />
-                <p>{todoContent}</p>
+            <li data-todo-id={todoId} className="flex flex-col gap-4">
+                <div className="flex gap-4">
+                    <input
+                        type="checkbox"
+                        checked={status === "COMPLETED"}
+                        onChange={() => {
+                            onChangeStatus(todoId);
+                            this.setState({
+                                todo: {
+                                    ...this.state.todo,
+                                    status:
+                                        this.state.todo.status === "ACTIVE"
+                                            ? "COMPLETED"
+                                            : "ACTIVE",
+                                },
+                            });
+                        }}
+                    />
+                    <p>{todoContent}</p>
+                </div>
                 <div className="flex gap-4">
                     <button data-edit className="bg-slate-700 p-2 rounded">
                         Edit <span>{todoContent}</span>
