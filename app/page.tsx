@@ -1,5 +1,6 @@
 "use client";
 
+import { Header } from "@/components/Header";
 import { TabLists } from "@/components/TabLists";
 import { Tabs } from "@/components/Tabs";
 import { TodoForm } from "@/components/TodoForm";
@@ -58,7 +59,7 @@ export default function Home() {
 
     return (
         <main className="flex min-h-screen flex-col items-center gap-8 p-4 pt-20">
-            <nav>Todo Matic</nav>
+            <Header />
 
             <TodoForm
                 value={value}
