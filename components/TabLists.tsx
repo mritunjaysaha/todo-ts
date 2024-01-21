@@ -1,5 +1,6 @@
 import { TabListItem } from "@/components/TabListItem";
-import { useSelector } from "@/lib/redux/store";
+import { updateTodoStatus } from "@/lib/redux/slices/todoSlice/todoSlice";
+import { useDispatch, useSelector } from "@/lib/redux/store";
 import { TabKeys } from "@/types/tabKeys";
 import { FC } from "react";
 
@@ -12,6 +13,7 @@ export const TabLists: FC<TabListsProps> = ({
     currentTab,
     handleTodoListClick,
 }) => {
+    const dispatch = useDispatch();
     const { todo, allTodoIdArr, activeTodoArr, completedTodoArr } = useSelector(
         (state) => state.todoData
     );
@@ -24,6 +26,14 @@ export const TabLists: FC<TabListsProps> = ({
 
     const remainingTodos = activeTodoArr.length;
 
+    const onChangeStatus = (todoId: string) => {
+        const currentTodo = todo[todoId];
+        if (currentTodo.status === "ACTIVE") {
+            dispatch(updateTodoStatus({ ...currentTodo, status: "COMPLETED" }));
+        } else {
+            dispatch(updateTodoStatus({ ...currentTodo, status: "ACTIVE" }));
+        }
+    };
     return (
         <ul onClick={handleTodoListClick}>
             <p>
@@ -35,7 +45,13 @@ export const TabLists: FC<TabListsProps> = ({
             {todoIdArrObj[currentTab].map((id) => {
                 const data = todo[id];
 
-                return <TabListItem key={id} {...data} />;
+                return (
+                    <TabListItem
+                        key={id}
+                        {...data}
+                        onChangeStatus={onChangeStatus}
+                    />
+                );
             })}
         </ul>
     );
